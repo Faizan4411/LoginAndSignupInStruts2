@@ -1,0 +1,36 @@
+<struts>
+    <package name="default" extends="struts-default">
+        <action name="registrationAction" class="RegistrationAction">
+            <interceptor-ref name="defaultStack" />
+            <result name="signup">/signup.jsp</result>
+            <result name="input">/index.jsp</result>
+            <result name="success">/welcome.jsp</result>
+            
+            <field name="email">
+                <field-validator type="requiredstring">
+                    <message key="errors.required" />
+                </field-validator>
+                <field-validator type="email">
+                    <message key="errors.invalid.email" />
+                </field-validator>
+            </field>
+            
+            <field name="password">
+                <field-validator type="requiredstring">
+                    <message key="errors.required" />
+                </field-validator>
+                <!-- Add more validators for password complexity if needed -->
+            </field>
+            
+            <field name="confirmPassword">
+                <field-validator type="requiredstring">
+                    <message key="errors.required" />
+                </field-validator>
+                <field-validator type="fieldexpression">
+                    <param name="expression">confirmPassword == password</param>
+                    <message key="errors.password.mismatch" />
+                </field-validator>
+            </field>
+        </action>
+    </package>
+</struts>
